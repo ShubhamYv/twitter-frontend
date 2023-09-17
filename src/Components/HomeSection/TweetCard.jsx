@@ -1,21 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import RepeatIcon from '@mui/icons-material/Repeat'
 import { Avatar, Button, Menu, MenuItem } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import VerifiedIcon from '../../Assets/Image/verifiedIcon.png'
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz"
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import FileUploadIcon from '@mui/icons-material/FileUpload'
 import BarChartIcon from '@mui/icons-material/BarChart'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { FavoriteOutlined } from '@mui/icons-material'
+import ReplyModal from './ReplyModal'
 
 const TweetCard = () => {
 
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl);
+
+  const [openReplyModal, setOpenReplyModal] = useState(false)
+  const handleOpenReplyModel = () => setOpenReplyModal(true);
+  const handleCloseReplyModel = () => setOpenReplyModal(false);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -33,10 +38,6 @@ const TweetCard = () => {
     handleClose()
   }
 
-  const handleOpenReplyModel = () => {
-    console.log("handle Open Reply Model");
-  }
-
   const handleCreateRetweet = () => {
     console.log("handle Create Retweet");
   }
@@ -46,7 +47,7 @@ const TweetCard = () => {
   }
 
   return (
-    <div className=''>
+    <React.Fragment>
       {/* <div className="flex items-center font-semibold text-gray-700 py-2">
         <RepeatIcon />
         <p>You Retweet</p>
@@ -127,7 +128,11 @@ const TweetCard = () => {
           </div>
         </div>
       </div>
-    </div>
+
+      <section>
+        <ReplyModal open={openReplyModal} handleClose={handleCloseReplyModel}  />
+      </section>
+    </React.Fragment>
   )
 }
 
